@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
+  name: db-deployment
   namespace: dtaber
   labels:
-    app: app
+    app: db
 spec:
   replicas: 1
   strategy:
@@ -12,17 +12,17 @@ spec:
   minReadySeconds: 20
   selector:
     matchLabels:
-      app: app
+      app: db
   template:
     metadata:
       labels:
-        app: app
+        app: db
     spec:
       containers:
-      - name: app-deployment
-        image: harbor.dev.afsmtddso.com/dtaber-harbor-project/app:49d0fd3-c4d9936
+      - name: db-deployment
+        image: harbor.dev.afsmtddso.com/dtaber-harbor-project/db:49d0fd3-c4d9936
         ports:
-        - containerPort: 5000
+        - containerPort: 5432
         envFrom:
         - secretRef:
             name: db-secret
